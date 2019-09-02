@@ -14,12 +14,14 @@ def shiftEncrypt(s):
 		else:
 			output = ''.join((output, c))
 	
-	print(output)
+	return output
 	
 
 def matrixEncrypt(s):
 
-	matrix = open('matrix.txt').read()
+	with open('matrix.txt') as m:
+		matrix = m.read()
+	
 	matrix = [list(map(float, item.split())) for item in matrix.split('\n')[:-1]]
 	binChars = []
 
@@ -29,7 +31,7 @@ def matrixEncrypt(s):
 		binChars.append(binChar)
 
 	matrixResult = [[sum(a*b for a,b in zip(X_row,Y_col)) for Y_col in zip(*matrix)] for X_row in binChars]
-	print(matrixResult)
+	return matrixResult
 
-# shiftEncrypt("Hello World")
-matrixEncrypt("Hello World")
+print(shiftEncrypt("Hello World"))
+print(matrixEncrypt("Hello World"))
