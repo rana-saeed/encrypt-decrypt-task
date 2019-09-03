@@ -95,7 +95,7 @@ def matrixDecrypt(s):
 	return resultStr
 
 #Encrypting a string through external encoding API
-def postEncode(s):
+def postEncrypt(s):
 	url = 'http://backendtask.robustastudio.com/encode'
 	payload = "{\n\t\"string\" : " + "\"" + s + "\"\n}"
 	headers = {
@@ -105,7 +105,7 @@ def postEncode(s):
 	return response.json().get('string')
 
 #Decrypting a string through external decoding API
-def postDecode(s):
+def postDecrypt(s):
 	url = 'http://backendtask.robustastudio.com/decode'
 	payload = "{\n\t\"string\" : " + "\"" + s + "\"\n}"
 	headers = {
@@ -124,5 +124,5 @@ def postDecode(s):
 # print(matrixEncrypt("Hello World"))
 # print(matrixDecrypt("9.0,6.0,12.0,7.0,13.0,8.0,13.0,9.0,4.0,8.0,8.0,6.0,6.0,11.0,13.0,5.0 18.0,19.0,5.0,22.0,8.0,13.0,14.0,10.0,5.0,22.0,20.0,20.0,18.0,27.0,20.0,12.0 19.0,14.0,13.0,21.0,15.0,17.0,21.0,18.0,8.0,22.0,17.0,15.0,14.0,27.0,18.0,14.0 19.0,14.0,13.0,21.0,15.0,17.0,21.0,18.0,8.0,22.0,17.0,15.0,14.0,27.0,18.0,14.0 28.0,25.0,18.0,27.0,26.0,24.0,28.0,20.0,10.0,36.0,25.0,21.0,29.0,43.0,28.0,16.0 6.0,6.0,0.0,7.0,2.0,7.0,1.0,0.0,2.0,6.0,4.0,2.0,2.0,9.0,4.0,0.0 25.0,22.0,16.0,20.0,16.0,15.0,20.0,12.0,14.0,27.0,23.0,27.0,25.0,31.0,25.0,14.0 28.0,25.0,18.0,27.0,26.0,24.0,28.0,20.0,10.0,36.0,25.0,21.0,29.0,43.0,28.0,16.0 22.0,17.0,14.0,16.0,16.0,17.0,13.0,3.0,14.0,17.0,17.0,16.0,12.0,24.0,21.0,5.0 19.0,14.0,13.0,21.0,15.0,17.0,21.0,18.0,8.0,22.0,17.0,15.0,14.0,27.0,18.0,14.0 13.0,10.0,4.0,18.0,6.0,10.0,13.0,10.0,5.0,14.0,15.0,14.0,9.0,18.0,13.0,12.0"))
 
-print(postEncode("Hello World"))
-print(postDecode("dlrow olleH"))
+# print(postEncrypt("Hello World"))
+# print(postDecrypt("dlrow olleH"))
