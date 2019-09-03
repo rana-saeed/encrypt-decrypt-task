@@ -1,4 +1,5 @@
 import sys
+import requests
 from string import ascii_lowercase as ALPHABETLOWER
 from string import ascii_uppercase as ALPHABETUPPER
 
@@ -92,7 +93,26 @@ def matrixDecrypt(s):
 		resultStr = ''.join((resultStr, n))
 
 	return resultStr
-	
+
+#Encrypting a string through external encoding API
+def postEncode(s):
+	url = 'http://backendtask.robustastudio.com/encode'
+	payload = "{\n\t\"string\" : " + "\"" + s + "\"\n}"
+	headers = {
+		'Content-Type': 'application/json'
+	}
+	response = requests.request('POST', url, headers = headers, data = payload, allow_redirects = False)
+	return response.json().get('string')
+
+#Decrypting a string through external decoding API
+def postDecode(s):
+	url = 'http://backendtask.robustastudio.com/decode'
+	payload = "{\n\t\"string\" : " + "\"" + s + "\"\n}"
+	headers = {
+		'Content-Type': 'application/json'
+	}
+	response = requests.request('POST', url, headers = headers, data = payload, allow_redirects = False)
+	return response.json().get('string')
 
 # print(shiftEncrypt("Hello World"))
 # print(shiftDecrypt("Khoor Zruog"))
@@ -103,3 +123,6 @@ def matrixDecrypt(s):
 # print(matrixDecrypt("9.0,6.0,12.0,7.0,13.0,8.0,13.0,9.0,4.0,8.0,8.0,6.0,6.0,11.0,13.0,5.0 18.0,19.0,5.0,22.0,8.0,13.0,14.0,10.0,5.0,22.0,20.0,20.0,18.0,27.0,20.0,12.0 29.0,28.0,20.0,21.0,18.0,23.0,16.0,9.0,15.0,27.0,21.0,23.0,20.0,35.0,30.0,5.0"))
 # print(matrixEncrypt("Hello World"))
 # print(matrixDecrypt("9.0,6.0,12.0,7.0,13.0,8.0,13.0,9.0,4.0,8.0,8.0,6.0,6.0,11.0,13.0,5.0 18.0,19.0,5.0,22.0,8.0,13.0,14.0,10.0,5.0,22.0,20.0,20.0,18.0,27.0,20.0,12.0 19.0,14.0,13.0,21.0,15.0,17.0,21.0,18.0,8.0,22.0,17.0,15.0,14.0,27.0,18.0,14.0 19.0,14.0,13.0,21.0,15.0,17.0,21.0,18.0,8.0,22.0,17.0,15.0,14.0,27.0,18.0,14.0 28.0,25.0,18.0,27.0,26.0,24.0,28.0,20.0,10.0,36.0,25.0,21.0,29.0,43.0,28.0,16.0 6.0,6.0,0.0,7.0,2.0,7.0,1.0,0.0,2.0,6.0,4.0,2.0,2.0,9.0,4.0,0.0 25.0,22.0,16.0,20.0,16.0,15.0,20.0,12.0,14.0,27.0,23.0,27.0,25.0,31.0,25.0,14.0 28.0,25.0,18.0,27.0,26.0,24.0,28.0,20.0,10.0,36.0,25.0,21.0,29.0,43.0,28.0,16.0 22.0,17.0,14.0,16.0,16.0,17.0,13.0,3.0,14.0,17.0,17.0,16.0,12.0,24.0,21.0,5.0 19.0,14.0,13.0,21.0,15.0,17.0,21.0,18.0,8.0,22.0,17.0,15.0,14.0,27.0,18.0,14.0 13.0,10.0,4.0,18.0,6.0,10.0,13.0,10.0,5.0,14.0,15.0,14.0,9.0,18.0,13.0,12.0"))
+
+print(postEncode("Hello World"))
+print(postDecode("dlrow olleH"))
