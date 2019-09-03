@@ -2,6 +2,7 @@ import sys
 from string import ascii_lowercase as ALPHABETLOWER
 from string import ascii_uppercase as ALPHABETUPPER
 
+#Encryting a string by shifting each character 3 positions in the alphbet
 def shiftEncrypt(s):
 	offset = 3
 	output = ""
@@ -16,9 +17,11 @@ def shiftEncrypt(s):
 	
 	return output
 	
-
+#Encrytping a string by:
+#	1.Converting each ascii char to its binary format (length 16)
+#	2.Creating a nx16 matrix representing the binary format of the string (where n is the length of the string)
+#	3.Multiplying the nx16 matrix with the encryption matrix provided
 def matrixEncrypt(s):
-
 	with open('matrix.txt') as m:
 		matrix = m.read()
 	
@@ -33,5 +36,49 @@ def matrixEncrypt(s):
 	matrixResult = [[sum(a*b for a,b in zip(X_row,Y_col)) for Y_col in zip(*matrix)] for X_row in binChars]
 	return matrixResult
 
-print(shiftEncrypt("Hello World"))
-print(matrixEncrypt("Hello World"))
+#Decrypting a string by shifting each character -3 positions in the alphabet
+def shiftDecrypt(s):
+	offset = 3
+	output = ""
+
+	for c in s:
+		if c in ALPHABETLOWER:
+			output = ''.join((output, chr(ord(c) - offset)))
+		elif c in ALPHABETUPPER:
+			output = ''.join((output, chr(ord(c) - offset)))
+		else:
+			output = ''.join((output, c))
+	
+	return output
+
+#Decrypting a nx16 matrix by:
+#	1.Multiplying the nx16 matrix with the inverse decryption matrix provided
+#	2.Getting the binary format of each matrix row result
+#	3.Conveting the binary result to ascii format to represent each of the characters in the string
+def matrixDecrypt(s):
+	with open('inverse.txt') as m:
+		matrixInverse = m.read()
+
+	matrixInverse = [list(map(float, item.split())) for item in matrixInverse.split('\n')[:-1]]
+	matrixResult = [[sum(a*b for a,b in zip(X_row,Y_col)) for Y_col in zip(*matrixInverse)] for X_row in s]
+
+	resultStr = ""
+	for i in matrixResult:
+		binStr = "0b"
+		for j in i:
+			binStr = ''.join((binStr, str(round(j))))
+
+		n = int(binStr, 2)
+		n = n.to_bytes((n.bit_length() + 7) // 8, 'big').decode()
+		resultStr = ''.join((resultStr, n))
+
+	return resultStr
+
+# print(shiftEncrypt("Hello World"))
+# print(shiftDecrypt("Khoor Zruog"))
+
+# print(matrixEncrypt("Hi"))
+print(matrixDecrypt([[9.0, 6.0, 12.0, 7.0, 13.0, 8.0, 13.0, 9.0, 4.0, 8.0, 8.0, 6.0, 6.0, 11.0, 13.0, 5.0], [20.0, 21.0, 13.0, 18.0, 17.0, 18.0, 15.0, 9.0, 6.0, 22.0, 17.0, 14.0, 17.0, 29.0, 24.0, 5.0]]))
+# print(matrixDecrypt([[23.0, 22.0, 20.0, 14.0, 16.0, 16.0, 15.0, 9.0, 13.0, 21.0, 17.0, 21.0, 18.0, 26.0, 26.0, 5.0], [14.0, 17.0, 4.0, 15.0, 8.0, 11.0, 7.0, 1.0, 3.0, 14.0, 15.0, 13.0, 12.0, 20.0, 19.0, 3.0]]))
+# print(matrixDecrypt([[29.0, 28.0, 20.0, 21.0, 18.0, 23.0, 16.0, 9.0, 15.0, 27.0, 21.0, 23.0, 20.0, 35.0, 30.0, 5.0], [18.0, 19.0, 5.0, 22.0, 8.0, 13.0, 14.0, 10.0, 5.0, 22.0, 20.0, 20.0, 18.0, 27.0, 20.0, 12.0], [27.0, 26.0, 15.0, 20.0, 18.0, 20.0, 14.0, 3.0, 14.0, 25.0, 22.0, 22.0, 21.0, 33.0, 28.0, 5.0]]))
+# print(matrixDecrypt([[9.0, 6.0, 12.0, 7.0, 13.0, 8.0, 13.0, 9.0, 4.0, 8.0, 8.0, 6.0, 6.0, 11.0, 13.0, 5.0], [18.0, 19.0, 5.0, 22.0, 8.0, 13.0, 14.0, 10.0, 5.0, 22.0, 20.0, 20.0, 18.0, 27.0, 20.0, 12.0], [19.0, 14.0, 13.0, 21.0, 15.0, 17.0, 21.0, 18.0, 8.0, 22.0, 17.0, 15.0, 14.0, 27.0, 18.0, 14.0], [19.0, 14.0, 13.0, 21.0, 15.0, 17.0, 21.0, 18.0, 8.0, 22.0, 17.0, 15.0, 14.0, 27.0, 18.0, 14.0], [28.0, 25.0, 18.0, 27.0, 26.0, 24.0, 28.0, 20.0, 10.0, 36.0, 25.0, 21.0, 29.0, 43.0, 28.0, 16.0], [6.0, 6.0, 0.0, 7.0, 2.0, 7.0, 1.0, 0.0, 2.0, 6.0, 4.0, 2.0, 2.0, 9.0, 4.0, 0.0], [25.0, 22.0, 16.0, 20.0, 16.0, 15.0, 20.0, 12.0, 14.0, 27.0, 23.0, 27.0, 25.0, 31.0, 25.0, 14.0], [28.0, 25.0, 18.0, 27.0, 26.0, 24.0, 28.0, 20.0, 10.0, 36.0, 25.0, 21.0, 29.0, 43.0, 28.0, 16.0], [22.0, 17.0, 14.0, 16.0, 16.0, 17.0, 13.0, 3.0, 14.0, 17.0, 17.0, 16.0, 12.0, 24.0, 21.0, 5.0], [19.0, 14.0, 13.0, 21.0, 15.0, 17.0, 21.0, 18.0, 8.0, 22.0, 17.0, 15.0, 14.0, 27.0, 18.0, 14.0], [13.0, 10.0, 4.0, 18.0, 6.0, 10.0, 13.0, 10.0, 5.0, 14.0, 15.0, 14.0, 9.0, 18.0, 13.0, 12.0]]))
