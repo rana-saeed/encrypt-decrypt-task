@@ -20,6 +20,7 @@ To run using the CLI tool:<br/>
 To run using Docker:<br/>
 1. Run <b>$docker run encrypt-decrypt-task</b> followed by text to be encrypted or decrypted followed by <b>--algorithm</b> and <b>--method</b> arguments defined<br/>
 	<b>e.g $docker run encrypt-decrypt-task My Secret Message --algorithm shift --method encrypt</b><br/>
+	Note: Public image is hosted on docker hub found as <b>ranasaeed/encrypt-decrypt-task:firstversion</b>
 
 To run the unit tests for the shiftEncrypt & matrixEncrypt funtions:<br/> 
 From the terminal/command line, run <b>$py unitTest.py</b><br/>
