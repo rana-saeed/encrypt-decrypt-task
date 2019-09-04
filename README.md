@@ -17,7 +17,7 @@ To run using the CLI tool:<br/>
 3. Run <b>$py interface.py</b> in terminal followed by text to be encrypted or decrypted followed by <b>--algorithm</b> and <b>--method</b> arguments defined<br/>
 	<b>e.g $py interface.py My Secret Message --algorithm shift --method encrypt</b><br/>
 
-To run using the Docker:<br/>
+To run using Docker:<br/>
 1. Run <b>$docker run encrypt-decrypt-task</b> followed by text to be encrypted or decrypted followed by <b>--algorithm</b> and <b>--method</b> arguments defined<br/>
 	<b>e.g $docker run encrypt-decrypt-task My Secret Message --algorithm shift --method encrypt</b><br/>
 
